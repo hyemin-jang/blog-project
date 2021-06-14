@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/signup.css' %}">
+{% endblock %}
+
+{% block content%}
+<section id="container">
+    <div class="main_container">
+        <div class="form_container">
+            <form class="signup_form" action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form_title">
+                    회원가입
+                </div>
+                {% for error in field.errors %}
+                    <div class="alert alert-danger">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                    <div class="alert alert-danger">
+                        {{error}}
+                    </div>
+                {% endfor %}
+                {% for field in form.visible_fields %}
+                    <p>{{ field }}</p>
+                    {% for error in field.errors %}
+                        <div class="alert alert-danger">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+                <input class="submit_btn" type="submit" value="회원가입">
+            </form>
+            
+        </div>  
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block head%}
+<link rel="stylesheet" href="{% static 'css/signup.css' %}">
+{% endblock %}
+
+{% block content%}
+<section id="container">
+    <div class="main_container">
+        <div class="form_container">
+            <form class="login_form" action="{% url 'accounts:login' %}" method="POST">
+            {% csrf_token %}
+                <div class="form_title">
+                    로그인
+                </div>
+                {% for error in field.errors %}
+                    <div class="alert alert-danger">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+                {% for field in form.visible_fields %}
+                    <p>{{ field }}</p>
+                    {% for error in field.errors %}
+                        <div class="alert alert-danger">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                    <div class="alert alert-danger">
+                        {{error}}
+                    </div>
+                {% endfor %}
+                <input class="submit_btn" type="submit" value="로그인">
+                <div class="bottom_text">
+                    계정이 없으신가요? <a href="{% url 'accounts:signup' %}"><span class="link">회원가입</span></a>
+                </div>
+            </form>
+            
+    </div>
+</section>
+{% endblock %}

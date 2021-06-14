@@ -1,0 +1,56 @@
+#container{
+   
+}
+.main_container{
+    width: 600px;
+    margin: 30px auto;
+    
+}
+
+.form_container{
+    width: 400px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+}
+.form_title{
+    font-size: 30px;
+    margin-bottom: 30px;
+}
+.alert{
+    width: 400px;
+    height: 20px;
+    color: red;
+    font-weight: bold;
+    font-size: 10px;
+}
+
+.form_input{
+    width: 400px;
+    height: 30px;
+    border: none;
+    border-bottom: 1px solid gray;
+    
+    vertical-align: text-bottom;
+    background-color: transparent;
+}
+.submit_btn{
+    width: 400px;
+    height: 40px;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin-top: 20px;
+    vertical-align: middle;
+}
+.bottom_text{
+    width: 400px;
+    text-align: center;
+    margin-top: 20px;
+}
+.link{
+    color: black;
+    font-weight: bold;
+    
+}
