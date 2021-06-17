@@ -24,16 +24,19 @@
     font-weight: bold;
     font-size: 10px;
 }
-
-.form_input{
+.form_label{
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+input {
     width: 400px;
     height: 30px;
-    border: none;
-    border-bottom: 1px solid gray;
-    
-    vertical-align: text-bottom;
     background-color: transparent;
+    border: 1px solid rgb(196, 196, 196);
+    margin-bottom: 15px;
+    vertical-align: middle;
 }
+
 .submit_btn{
     width: 400px;
     height: 40px;
@@ -51,6 +54,6 @@
 }
 .link{
     color: black;
-    font-weight: bold;
-    
+    font-weight: bold;    
+    text-decoration: none;
 }

@@ -1,17 +1,15 @@
-#main{
-
-}
 #main_container{
     width: 1200px;
+    height: 100%;
     margin: 0 auto;
 }
  
 #left_box{
     float: left;
     width: 20%;
+    height: 100%;
     padding: 0 auto;
     border-right: 1px solid rgb(196, 196, 196);
-    
 }
 .title_inner{
     
@@ -36,14 +34,14 @@
 
 #contents_box{
     float: left;
-    width: 60%;
-    position: relative;    
+    width: 55%;    
+    position: relative;       
 }
-.content_inner{
+.contents_box_inner{
     position: absolute;
     top: 0; left: 50%;
     transform: translateX(-50%);
-    width: 90%;
+    width: 540px;
     margin: 20px auto;  
 }
 /*새 글 작성*/
@@ -92,13 +90,10 @@
 /*메인 포스팅들*/
 .contents{
     background-color: white;
-    
     margin-bottom: 30px;
-    display: flex;
 }
-.contents_left{
-    width: 70%;
-    margin: 30px;
+.contents_inner{
+    padding: 30px;
 }
 .contents_title{
     font-size: 26px;
@@ -106,15 +101,16 @@
     margin-bottom: 15px;
 }
 .contents_text{
-    height: 100px;
+    width: 100%;
     margin-bottom: 20px;
+    overflow: hidden;
 }
 .contents_author{
     display: flex;
     align-items: center;  
-    
+    margin-bottom: 20px;
 }
-.author_photo{
+.author_picture{
     width: 30px; height: 30px;
     border-radius: 50%;    
     margin-right: 10px;
@@ -128,13 +124,8 @@
     color: gray;
 }
 
-.contents_right{
-    width: 30%;
-    margin: 30px 30px 30px 0px;
-    vertical-align: middle;
-}
 .contents_photo{
-    width: 200px; height: 200px;
+    width: 100%;
     
 }
 .contents_photo img{
@@ -144,16 +135,17 @@
 /*오른쪽부분*/
 #right_box{
     float: right;
-    width: 20%;
-    border-left: 1px solid rgb(196, 196, 196);
+    width: 25%;  
+    height: 100%;
     padding: 0 auto;
+    border-left: 1px solid rgb(196, 196, 196);
 }
 
 .user_box{
     width: 100%;    
     
 }
-.user_box .me{
+.me{
     border-bottom: 1px solid rgb(196, 196, 196);
     height: 150px;
     padding: 30px;
@@ -162,18 +154,16 @@
     justify-content: center;
     align-items: center;
 }
-.user_box .me .me_profile_img{
+.me_picture{
     width: 100px; height: 100px;
     border-radius: 50%;
-    background-color: purple;
     margin-bottom: 10px;
 }
-.user_box .me .me_name{
+.me_name{
     font-size: 20px;
     font-weight: bold;
 }
-.user_box .friends{
-    
+.user_box .friends{    
     height: 200px;
     padding: 10px;
 }

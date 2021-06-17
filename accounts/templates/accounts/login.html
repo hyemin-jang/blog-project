@@ -20,7 +20,12 @@
                     </div>
                 {% endfor %}
                 {% for field in form.visible_fields %}
-                    <p>{{ field }}</p>
+                    <div class="form_label">
+                    {{ field.label }}
+                    </div>
+                    <div class="form_field">
+                    {{ field }}
+                    </div>
                     {% for error in field.errors %}
                         <div class="alert alert-danger">
                             {{ error }}

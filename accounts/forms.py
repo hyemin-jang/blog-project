@@ -8,25 +8,13 @@ class SignupForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['email', 'password', 'password2', 'nickname', 'picture']
-        
-    email = forms.CharField(max_length=255, widget=forms.EmailInput(attrs={
-        'class': 'form_input',
-        'placeholder': '이메일'
-    }))
-    password = forms.CharField(widget=forms.PasswordInput(attrs={
-        'class': 'form_input',
-        'placeholder': '비밀번호',
-    }))
-    password2 = forms.CharField(widget=forms.PasswordInput(attrs={
-        'class': 'form_input',
-        'placeholder': '비밀번호 확인'
-    }))
-    nickname = forms.CharField(max_length=20, widget=forms.TextInput(attrs={
-        'class': 'form_input',
-        'placeholder': '닉네임'
-    }))
-    picture = forms.ImageField(required=False)
-    
+
+    email = forms.CharField(max_length=255, label='이메일 계정')    
+    password = forms.CharField(label='비밀번호', widget=forms.PasswordInput)
+    password2 = forms.CharField(label='비밀번호 확인', widget=forms.PasswordInput)
+    nickname = forms.CharField(max_length=20, label='닉네임')
+    picture = forms.ImageField(label='프로필 사진', required=False)
+   
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
@@ -34,7 +22,7 @@ class SignupForm(forms.ModelForm):
             raise forms.ValidationError('이미 존재하는 이메일입니다.')
         return email
 
-    def clean_password2(self):
+    def clean_password(self):
         password = self.cleaned_data.get("password")
         password2 = self.cleaned_data.get("password2")
         if password and password2 and password != password2:
@@ -48,26 +36,26 @@ class SignupForm(forms.ModelForm):
             raise forms.ValidationError('이미 존재하는 닉네임입니다.')
         return nickname
 
-  
+    def clean_picture(self):
+        picture= self.cleaned_data.get('picture')
+        if not picture:
+            picture=None
+        return picture
 
-    def save(self):  #폼에서 유효성검사 통과한 데이터들을 저장할것임
-        Profile.objects.create(
-            nickname=self.cleaned_data['nickname'],
-            password=self.cleaned_data['password2'],
-            email=self.cleaned_data['email'],
-            picture=self.cleaned_data['picture'],
-        )
-        return 
+    def save(self):
+        new_user = Profile.objects.create_user(  #create_user를 써야 set_password를 통해 비밀번호 해쉬화됨
+                email= self.cleaned_data['email'],
+                password = self.cleaned_data['password'],
+                nickname = self.cleaned_data['nickname']
+            )
+        new_user.picture = self.cleaned_data['picture']
+        new_user.save()
+
+        
 
 class LoginForm(AuthenticationForm):
-    username= forms.CharField(max_length=255, widget=forms.EmailInput(attrs={
-        'class': 'form_input',
-        'placeholder': '이메일'
-    }))
-    password= forms.CharField(widget=forms.PasswordInput(attrs={
-        'class': 'form_input',
-        'placeholder': '비밀번호'
-    }))
+    username= forms.CharField(max_length=255, label="이메일 계정")
+    password= forms.CharField(label="비밀번호", widget=forms.PasswordInput)
     
     error_messages = {
         'invalid_login': ("이메일이나 비밀번호가 올바르지 않습니다."),

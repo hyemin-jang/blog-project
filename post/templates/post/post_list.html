@@ -1,0 +1,126 @@
+{% extends "layout.html" %}
+{% load static %} 
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/post_list.css' %}">
+{% endblock %}
+
+
+    
+   
+{% block content %}
+
+
+    <main id="main_container">
+        
+        <aside id="left_box">
+            <div class="title_inner">
+                <div class="title_img"></div>
+                <div class="title_name">모임이름</div>
+            </div>
+        </aside>
+
+        <section id="contents_box">
+            <div class="contents_box_inner">
+                <div class="content_new">
+                    {% if user_profile %}
+                    <form class="new_form" action="" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <!-- 수동폼작성 -->
+                        {% if messages %}
+                            {% for message in messages %}
+                            <script>
+                            alert('{{message}}')
+                            </script>
+                            {% endfor %}
+                        {% endif %}
+                        <div class="new_input">
+                            <input type="text" class="input_title" name="title" placeholder="제목을 입력하세요.">
+                            <input type="text" class="input_content" name="content" placeholder="내용을 입력하세요.">
+                        </div>
+                        <div class="new_button">    
+                            <input type="file" class="photo_button" name="photo">
+                            <input type="submit" class="submit_btn" value="올리기">
+                        </div>                        
+                    </form>
+                    {% endif %}
+                </div>
+                {% for post in posts %}
+                <article class="contents">
+                    <div class="contents_inner">
+                        <div class="contents_title">
+                            {{ post.title }}
+                        </div>
+                        <div class="contents_author">
+                            {% if user_profile.picture %}
+                            <img class="author_picture" src="{{ user_profile.picture.url }}">
+                            {% else %}
+                            <img class="author_picture" src="{% static 'imgs/user_img.png' %}">
+                            {% endif %}
+                            <div class="author_name">
+                                {{ post.author }}
+                            </div>
+                            <div class="created">
+                                {{ post.created_at }}
+                            </div>
+                        </div>
+                        <div class="contents_text">
+                            {{ post.content }}
+                        </div>
+                        <div class="contents_photo">
+                            {% if post.photo %}
+                            <img class="contents_photo" src="{{ post.photo.url }}">
+                            {% endif %}
+                        </div> 
+                    </div>                                           
+                </article>
+                {% endfor %}
+            </div>
+        </section>
+    
+
+    
+        <aside id="right_box">
+            <div class="user_box">
+                
+                <div class="me">
+                    {% if user_profile %}
+                        {% if user_profile.picture %}
+                        <img class="me_picture" src="{{ user_profile.picture.url }}">
+                        {% else %}
+                        <img class="me_picture" src="{% static 'imgs/user_img.png' %}">
+                        {% endif %}
+                        <div class="me_name">
+                            {{ user_profile.nickname }}
+                        </div>
+                    {% else %}
+                        <div>로그인하세요</div>
+                    {% endif %}                    
+                </div>
+    
+
+                <div class="friends">
+                    <div class="friends_title">참가한 친구들</div>
+                    <div class="friends_profile">
+                        <div class="friends_photo"></div>                                 
+                        <div class="friends_name">bori</div>
+                    </div>
+                    <div class="friends_profile">
+                        <div class="friends_photo"></div>                                 
+                        <div class="friends_name">ritae</div>
+                    </div>
+                    
+                </div>
+                
+                
+            </div>
+        </aside>
+    
+    </main>
+     
+
+{% endblock %}
+
+  
+</body>
+</html>

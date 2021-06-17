@@ -11,21 +11,21 @@ import datetime
 
 class UserManager(BaseUserManager):    
     
-    use_in_migrations = True    #???
+    use_in_migrations = True 
     
     # Helper 클래스인 class UserManager(BaseUserManager)의 두가지 메서드 제공: create_user, create_superuser
     # create_user(*username_filed*, password=None, **other_fields)
-    # 첫번째 ㅏ라미터가 username인데 나는 대신 email을 쓸것
+    # 첫번째 파라미터가 username인데 나는 대신 email을 쓸것
 
-    def create_user(self, email, nickname, password=None):        
+    def create_user(self, email, nickname, password):        
         if not email :            
             raise ValueError('Users must have an email address.')
               
         user = self.model(            
             email = self.normalize_email(email),            
-            nickname = nickname        
-        )        
-        user.set_password(password)        
+            nickname = nickname,
+        )
+        user.set_password(password)         
         user.save(using=self._db)        
         return user     
 
@@ -51,9 +51,8 @@ class Profile(AbstractBaseUser,PermissionsMixin):
         now= datetime.datetime.now()
         return 'accounts/{}/{}.jpg'.format(instance.nickname, now.strftime('%Y/%m/%d'))
     
-    email = models.EmailField(max_length=255, unique=True, default="")   
-    
-    nickname = models.CharField(max_length=20, unique=True, default="")
+    email = models.EmailField(max_length=255, unique=True)   
+    nickname = models.CharField(max_length=20, unique=True)
     picture = ProcessedImageField(upload_to= user_picture_path, 
                                 processors=[ResizeToFill(150,150)],
                                 format='JPEG', options={'quality':90},
